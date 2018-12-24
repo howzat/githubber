@@ -11,17 +11,18 @@ import cats.syntax.apply._
 import cats.syntax.either._
 import cats.syntax.flatMap._
 import cats.syntax.functor._
+
 import scala.util.Try
 import org.jline.utils.AttributedString
+import runner.config.ReplConfig
 
 
-case class GitHubberConsole[F[_]](terminal:Terminal, lineReader: LineReader)(implicit F: MonadError[F, Throwable]) {
+case class GitHubberConsole[F[_]](terminal:Terminal, lineReader: LineReader, config:ReplConfig)(implicit F: MonadError[F, Throwable]) {
 
-  private val prompt = "|~>"
 
   def readCommand(): Try[Vector[String]] =  {
     Try(lineReader
-      .readLine(prompt)
+      .readLine(config.prompt)
       .split(' ')
       .toVector
       .map(_.trim)

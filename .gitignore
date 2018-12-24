@@ -1,0 +1,10 @@
+/.classpath
+/.idea
+/.idea_modules
+/.project
+/.settings
+/RUNNING_PID
+credentials.yaml
+logs
+target
+api-token.conf

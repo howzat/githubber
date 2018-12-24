@@ -26,7 +26,10 @@ object Dependencies {
 
   val compile: Seq[ModuleID] = Seq(
     "io.lemonlabs" %% "scala-uri" % "1.4.0",
-    "org.jline" % "jline" % "3.9.0" withSources()
+    "org.jline" % "jline" % "3.9.0" withSources(),
+    "com.typesafe" % "config" % "1.3.3",
+    "com.iheart" %% "ficus" % "1.4.3"
+
   ) ++
     http4sDependencies ++
     catsDependencies
