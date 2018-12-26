@@ -1,7 +1,10 @@
+import com.itv.scalapact.plugin._
+
 ThisBuild / version := "0.0.1"
 ThisBuild / organization := "com.appliedtype"
 
 lazy val microservice = (project in file("."))
+  .enablePlugins(ScalaPactPlugin)
   .settings(Dependencies.appDependencies: _*)
   .settings(
     name := "githubber",

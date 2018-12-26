@@ -1,17 +1,14 @@
-package runner.config
+package com.appliedtype.githubber.runner.config
 
 import com.typesafe.config
 import com.typesafe.config.{Config, ConfigFactory}
 import net.ceedubs.ficus.Ficus._
-import com.typesafe.config.ConfigFactory
-
-import scala.collection.immutable
-import scala.util.Try
 
 object GitHubberConfig
   extends ReadConfig
     with GitHubConfig
-    with ReplConfig {
+    with CommandConfig
+    with ConsoleConfig {
 
   override lazy val configuration: config.Config = ConfigFactory.load()
 }
@@ -37,14 +34,19 @@ trait GitHubConfig extends ReadConfig {
         fail("secrets.conf", "Couldn't load the secrets required to run GiHubber!")
       )(ConfigFactory.load)
 
-  lazy val githubApiToken: String = apiTokenConfiguration.getString("github.token")
+  lazy val apiToken: String = apiTokenConfiguration.getString("github.token")
+
+  lazy val baseUrl: String = configuration.as[String]("github.baseUrl")
 }
 
-trait ReplConfig extends ReadConfig {
+trait CommandConfig extends ReadConfig {
+
+  lazy val commandList: Seq[String] = getStringList("repl.commandList")
+}
+
+trait ConsoleConfig extends ReadConfig {
 
   lazy val prompt: String =
     getStringOpt("repl.prompt")
       .getOrElse(">")
-
-  lazy val commandList: Seq[String] = getStringList("repl.commandList")
 }
