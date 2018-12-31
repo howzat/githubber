@@ -11,7 +11,7 @@ case class CommandDispatcher[F[_]](
   commandConfig: CommandConfig)(implicit F: MonadError[F, Throwable]) {
 
   def dispatch(input:Command): F[CommandResult] = input match {
-    case UserInfoCommand(username) => gitHubberClient.getUserDetails(username).map(r => StringResult(r.toString))
+    case UserInfoCommand => gitHubberClient.getUserDetails().map(r => StringResult(r.toString))
     case _ => F.pure(EchoResult(input))
   }
 }

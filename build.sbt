@@ -31,6 +31,12 @@ lazy val microservice = (project in file("."))
   )
   .settings(evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(true))
   .settings(
+    pactBrokerAddress := "http://localhost:80",
+    pactContractVersion := "1.0.0",
+    providerName := "GitHubber", 
+    allowSnapshotPublish := true
+  )
+  .settings(
     resolvers ++= Seq(
       Resolver.jcenterRepo,
       Resolver.typesafeIvyRepo("releases")

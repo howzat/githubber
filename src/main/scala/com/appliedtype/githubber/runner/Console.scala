@@ -17,10 +17,10 @@ case class Console[M[_]](
 
   def read: Command = readLine match {
     case "projects" :: org :: Nil => ProjectsCommand(org)
-    case "user" :: name :: Nil => UserInfoCommand(name)
     case "settings" :: Nil => SettingsCommand
-    case "quit" :: Nil => Quit
-    case "cls" :: Nil => ClearConsole
+    case "quit"     :: Nil => Quit
+    case "user"     :: Nil => UserInfoCommand
+    case "cls"      :: Nil => ClearConsole
     case unknown => NoSuchCommand(unknown.mkString(""))
   }
 

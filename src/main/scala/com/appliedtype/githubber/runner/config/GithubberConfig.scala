@@ -31,7 +31,7 @@ trait GitHubConfig extends ReadConfig {
 
   private lazy val apiTokenConfiguration: Config =
     getStringOpt("secrets.conf"). fold(
-        fail("secrets.conf", "Couldn't load the secrets required to run GiHubber!")
+        fail("secrets.conf", "Couldn't load the secrets required to run GitHubber!")
       )(ConfigFactory.load)
 
   lazy val apiToken: String = apiTokenConfiguration.getString("github.token")

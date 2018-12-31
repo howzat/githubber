@@ -10,7 +10,7 @@ object Commands {
   case object Quit extends Command
   case object ClearConsole extends Command
   case object SettingsCommand extends Command
-  case class UserInfoCommand(username: String) extends Command
+  case object UserInfoCommand extends Command
   case class ProjectsCommand(organisation: String) extends Command
 
   sealed trait CommandResult {

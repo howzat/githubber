@@ -3,7 +3,7 @@ import sbt.{ModuleID, _}
 
 object Dependencies {
 
-  val http4sVersion = "0.18.21"
+  val playWsStandaloneVersion = "2.0.0-RC2"
 
   def appDependencies: Seq[Setting[_]] = Seq(libraryDependencies ++= compile ++ testing("test") ++ pactDependencies)
 
@@ -14,21 +14,15 @@ object Dependencies {
     "org.scalatest" %% "scalatest"               % "3.0.5" % "test"
   )
 
-
   def testing(scope: String): Seq[ModuleID] = Seq(
     "org.scalamock" %% "scalamock" % "4.1.0" % scope,
-    "org.scalacheck" %% "scalacheck" % "1.14.0" % scope
-  )
-
-  val http4sDependencies: Seq[ModuleID] = Seq(
-    "org.http4s" %% "http4s-dsl" % http4sVersion,
-    "org.http4s" %% "http4s-blaze-server" % http4sVersion,
-    "org.http4s" %% "http4s-blaze-client" % http4sVersion
+    "org.scalacheck" %% "scalacheck" % "1.14.0" % scope,
+    "commons-io" % "commons-io" % "2.6"  % scope
   )
 
   val catsDependencies: Seq[ModuleID] = Seq(
     "org.typelevel" %% "cats-core" % "1.5.0",
-    "org.typelevel" %% "cats-effect" % "1.1.0",
+    "org.typelevel" %% "cats-effect" % "0.10",
     "io.chrisdavenport" %% "cats-par" % "0.2.0"
   )
 
@@ -36,8 +30,9 @@ object Dependencies {
     "io.lemonlabs" %% "scala-uri" % "1.4.0",
     "org.jline" % "jline" % "3.9.0" withSources(),
     "com.typesafe" % "config" % "1.3.3",
-    "com.iheart" %% "ficus" % "1.4.3"
+    "com.iheart" %% "ficus" % "1.4.3",
+    "com.typesafe.play" %% "play-ahc-ws-standalone" % playWsStandaloneVersion withSources(),
+    "com.typesafe.play" %% "play-ws-standalone-json" % playWsStandaloneVersion
   ) ++
-    http4sDependencies ++
     catsDependencies
 }
