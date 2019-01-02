@@ -3,6 +3,8 @@ import com.itv.scalapact.plugin._
 ThisBuild / version := "0.0.1"
 ThisBuild / organization := "com.appliedtype"
 
+val pactUp = taskKey[Unit]("Packs and publishes pact files currently in pact directory")
+
 lazy val microservice = (project in file("."))
   .enablePlugins(ScalaPactPlugin)
   .settings(Dependencies.appDependencies: _*)
@@ -27,7 +29,8 @@ lazy val microservice = (project in file("."))
       "-Ywarn-unused-import",
       "-Xlint"
     ),
-    addCommandAlias("testAll", ";reload;test")
+    addCommandAlias("testAll", ";reload;test"),
+    addCommandAlias("pactPublish", ";test;pactPack;pactPush")
   )
   .settings(evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(true))
   .settings(
