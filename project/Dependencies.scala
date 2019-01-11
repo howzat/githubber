@@ -7,12 +7,15 @@ object Dependencies {
 
   def appDependencies: Seq[Setting[_]] = Seq(libraryDependencies ++= compile ++ testing("test") ++ pactDependencies)
 
-  val pactDependencies = Seq(
-    "com.itv"       %% "scalapact-circe-0-9"     % "2.3.3" % "test",
-    "com.itv"       %% "scalapact-http4s-0-18"   % "2.3.3" % "test",
-    "com.itv"       %% "scalapact-scalatest"     % "2.3.3" % "test",
-    "org.scalatest" %% "scalatest"               % "3.0.5" % "test"
+  val pactVersion = "2.3.4"
+
+  val pactDependencies: Seq[ModuleID] = Seq(
+    "com.itv" %% "scalapact-circe-0-9" % pactVersion % "test",
+    "com.itv" %% "scalapact-http4s-0-18" % pactVersion % "test",
+    "com.itv" %% "scalapact-scalatest" % pactVersion % "test",
+    "org.scalatest" %% "scalatest" % "3.0.5" % "test"
   )
+
 
   def testing(scope: String): Seq[ModuleID] = Seq(
     "org.scalamock" %% "scalamock" % "4.1.0" % scope,

@@ -61,4 +61,8 @@ class GithubV3ApiClientSpec extends WordSpec with Matchers {
       Seq("id","url","gists_url","organizations_url","repos_url","name","company","email","bio")
         .map(rule => bodyTypeRule(rule)).reduce(_ ~> _)
   }
+
+  object AnybodyMatchingRules {
+    val whoCares: ScalaPactMatchingRules =  bodyRegexRule("", "*.")
+  }
 }

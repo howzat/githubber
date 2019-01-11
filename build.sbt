@@ -1,12 +1,16 @@
-import com.itv.scalapact.plugin._
+import com.itv.scalapact.plugin.ScalaPactPlugin._
+import scala.sys.process._
 
 ThisBuild / version := "0.0.1"
 ThisBuild / organization := "com.appliedtype"
 
 val pactUp = taskKey[Unit]("Packs and publishes pact files currently in pact directory")
 
+val pactTags: Seq[String] = List(git.gitCurrentBranch.value, git.baseVersion.value) ++ git.gitCurrentTags.value
+
+
 lazy val microservice = (project in file("."))
-  .enablePlugins(ScalaPactPlugin)
+  .enablePlugins(ScalaPactPlugin, GitVersioning)
   .settings(Dependencies.appDependencies: _*)
   .settings(
     name := "githubber",
@@ -29,14 +33,16 @@ lazy val microservice = (project in file("."))
       "-Ywarn-unused-import",
       "-Xlint"
     ),
-    addCommandAlias("testAll", ";reload;test"),
-    addCommandAlias("pactPublish", ";test;pactPack;pactPush")
+    addCommandAlias("testAll", ";reload;test;pactPack;pactPush"),
+    addCommandAlias("pactPublish", ";pactPack;pactPush")
   )
   .settings(evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(true))
   .settings(
     pactBrokerAddress := "http://localhost:80",
     pactContractVersion := "1.0.0",
-    providerName := "GitHubber", 
+    providerName := "GitHubber",
+    pactContractTags := pactTags,
+    pactContractVersion := ("git rev-parse --short HEAD" !!).trim,
     allowSnapshotPublish := true
   )
   .settings(
