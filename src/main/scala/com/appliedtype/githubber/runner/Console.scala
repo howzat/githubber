@@ -25,7 +25,11 @@ case class Console[M[_]](
   }
 
   private def readLine: List[String] = {
-    lineReader.readLine().strip().split(' ').map(_.trim) toList
+    val lineOfText: String = lineReader.readLine()
+    lineOfText
+      .split(' ')
+      .map(_.trim)
+      .toList
   }
 
   def respond(resultM: M[CommandResult]): Unit = {

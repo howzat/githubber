@@ -12,7 +12,7 @@ object Dependencies {
   val pactDependencies: Seq[ModuleID] = Seq(
     "com.itv" %% "scalapact-circe-0-9" % pactVersion % "test",
     "com.itv" %% "scalapact-http4s-0-18" % pactVersion % "test",
-    "com.itv" %% "scalapact-scalatest" % pactVersion % "test",
+    "com.itv" %% "scalapact-scalatest" % pactVersion % "test" withSources(),
     "org.scalatest" %% "scalatest" % "3.0.5" % "test"
   )
 
