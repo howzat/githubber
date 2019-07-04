@@ -6,5 +6,3 @@ providerStateMatcher := {
     println("Injecting key 1234 into the database...")
     true
 }
-
-
